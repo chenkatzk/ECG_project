@@ -138,6 +138,7 @@ if __name__ == "__main__":
     net.load_state_dict(torch.load(args.model_path, map_location=device))
     net.eval()
     if (args.phase == 'test'):
+        test_folds= range(1, 11)
         test_dataset = ECGDataset('test', data_dir, label_csv, test_folds, leads)
         test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers, pin_memory=True)
         thresholds = get_thresholds(test_loader, net, device, args.threshold_path)
